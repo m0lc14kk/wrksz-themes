@@ -14,6 +14,7 @@ export type ScriptConfig = {
 	themeColors: string | Partial<Record<string, string>> | undefined;
 	initialTheme: string | undefined;
 	disableTransitionOnChange: boolean | string;
+	followSystem: boolean;
 };
 
 /**
@@ -34,6 +35,7 @@ function themeScript(
 	themeColors: string | Record<string, string> | null,
 	initialTheme: string | null,
 	disableTransitionOnChange: boolean | string,
+	followSystem: boolean,
 ): void {
 	if (disableTransitionOnChange) {
 		const css =
@@ -53,27 +55,29 @@ function themeScript(
 	} else {
 		let stored: string | null = null;
 
-		try {
-			if (storage === "cookie") {
-				const re = new RegExp(
-					`(?:^|;\\s*)${storageKey.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}=([^;]*)`,
-				);
-				const match = document.cookie.match(re);
-				const decoded = match?.[1] != null ? decodeURIComponent(match[1]) : null;
-				stored = decoded ? decoded : null;
-			} else if (storage === "hybrid") {
-				const re = new RegExp(
-					`(?:^|;\\s*)${storageKey.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}=([^;]*)`,
-				);
-				const match = document.cookie.match(re);
-				const decoded = match?.[1] != null ? decodeURIComponent(match[1]) : null;
-				const fromCookie = decoded ? decoded : null;
-				stored = fromCookie ?? localStorage.getItem(storageKey);
-			} else if (storage !== "none") {
-				const store = storage === "localStorage" ? localStorage : sessionStorage;
-				stored = store.getItem(storageKey);
-			}
-		} catch {}
+		if (!followSystem) {
+			try {
+				if (storage === "cookie") {
+					const re = new RegExp(
+						`(?:^|;\\s*)${storageKey.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}=([^;]*)`,
+					);
+					const match = document.cookie.match(re);
+					const decoded = match?.[1] != null ? decodeURIComponent(match[1]) : null;
+					stored = decoded ? decoded : null;
+				} else if (storage === "hybrid") {
+					const re = new RegExp(
+						`(?:^|;\\s*)${storageKey.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}=([^;]*)`,
+					);
+					const match = document.cookie.match(re);
+					const decoded = match?.[1] != null ? decodeURIComponent(match[1]) : null;
+					const fromCookie = decoded ? decoded : null;
+					stored = fromCookie ?? localStorage.getItem(storageKey);
+				} else if (storage !== "none") {
+					const store = storage === "localStorage" ? localStorage : sessionStorage;
+					stored = store.getItem(storageKey);
+				}
+			} catch {}
+		}
 
 		theme =
 			stored && (themes.includes(stored) || (enableSystem && stored === "system"))
@@ -154,6 +158,7 @@ export function getScript(config: ScriptConfig): string {
 		JSON.stringify(config.themeColors ?? null),
 		JSON.stringify(config.initialTheme ?? null),
 		JSON.stringify(config.disableTransitionOnChange),
+		String(config.followSystem),
 	].join(",");
 
 	return `(${fn})(${args})`;
