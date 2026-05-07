@@ -40,6 +40,7 @@ const base = {
 	themeColors: undefined,
 	initialTheme: undefined,
 	disableTransitionOnChange: false,
+	followSystem: false,
 };
 
 describe("themeScript - class attribute", () => {
@@ -144,6 +145,16 @@ describe("themeScript - storage options", () => {
 		localStorage.setItem("theme", "dark");
 		runScript({ ...base, storage: "none", enableSystem: false, defaultTheme: "light" });
 		expect(document.documentElement.classList.contains("light")).toBe(true);
+	});
+
+	test("ignores stored theme when followSystem=true", () => {
+		localStorage.setItem("theme", "light");
+		window.matchMedia = () => ({ matches: true }) as MediaQueryList;
+
+		runScript({ ...base, followSystem: true });
+
+		expect(document.documentElement.classList.contains("dark")).toBe(true);
+		expect(document.documentElement.classList.contains("light")).toBe(false);
 	});
 });
 

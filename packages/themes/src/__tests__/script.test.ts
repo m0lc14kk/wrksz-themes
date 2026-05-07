@@ -15,6 +15,7 @@ const base = {
 	themeColors: undefined,
 	initialTheme: undefined,
 	disableTransitionOnChange: false,
+	followSystem: false,
 };
 
 describe("getScript", () => {

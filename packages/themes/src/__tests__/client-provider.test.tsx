@@ -597,4 +597,26 @@ describe("serializeCookie", () => {
 		const result = serializeCookie("theme", "my theme");
 		expect(result).toContain("theme=my%20theme");
 	});
+
+	test("rejects cookie names containing separators", () => {
+		expect(() => serializeCookie("theme; Path=/admin", "dark")).toThrow("Invalid cookie name");
+	});
+
+	test("rejects cookie path containing control characters or semicolons", () => {
+		expect(() => serializeCookie("theme", "dark", { path: "/; SameSite=None" })).toThrow(
+			"Invalid cookie path",
+		);
+		expect(() => serializeCookie("theme", "dark", { path: "/app\nadmin" })).toThrow(
+			"Invalid cookie path",
+		);
+	});
+
+	test("rejects cookie domain containing control characters or semicolons", () => {
+		expect(() => serializeCookie("theme", "dark", { domain: "example.com; Secure" })).toThrow(
+			"Invalid cookie domain",
+		);
+		expect(() => serializeCookie("theme", "dark", { domain: "example.com\nadmin" })).toThrow(
+			"Invalid cookie domain",
+		);
+	});
 });
