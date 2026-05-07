@@ -3,11 +3,23 @@
 		"maxBytes": 750,
 		"maxGzipBytes": 500
 	},
+	"use-theme-subpath": {
+		"maxBytes": 750,
+		"maxGzipBytes": 500
+	},
 	"use-theme-value": {
 		"maxBytes": 800,
 		"maxGzipBytes": 550
 	},
+	"use-theme-value-subpath": {
+		"maxBytes": 800,
+		"maxGzipBytes": 550
+	},
 	"themed-image": {
+		"maxBytes": 1200,
+		"maxGzipBytes": 700
+	},
+	"themed-image-subpath": {
 		"maxBytes": 1200,
 		"maxGzipBytes": 700
 	},
