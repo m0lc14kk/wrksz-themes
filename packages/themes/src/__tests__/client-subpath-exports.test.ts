@@ -1,0 +1,39 @@
+import { describe, expect, test } from "bun:test";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+
+const rootDir = resolve(import.meta.dir, "../..");
+
+const clientSubpaths = [
+	"use-theme",
+	"use-theme-value",
+	"use-theme-effect",
+	"themed-image",
+	"provider",
+	"create-themes",
+] as const;
+
+describe("client subpath exports", () => {
+	test("package.json exposes fine-grained client modules", () => {
+		const packageJson = JSON.parse(readFileSync(resolve(rootDir, "package.json"), "utf-8")) as {
+			exports: Record<string, { import?: { types?: string; default?: string } }>;
+		};
+
+		for (const subpath of clientSubpaths) {
+			expect(packageJson.exports[`./client/${subpath}`]).toEqual({
+				import: {
+					types: `./dist/client/${subpath}.d.ts`,
+					default: `./dist/client/${subpath}.js`,
+				},
+			});
+		}
+	});
+
+	test("build config includes every client subpath entrypoint", () => {
+		const config = readFileSync(resolve(rootDir, "bunup.config.ts"), "utf-8");
+
+		for (const subpath of clientSubpaths) {
+			expect(config).toContain(`"src/client/${subpath}.ts`);
+		}
+	});
+});

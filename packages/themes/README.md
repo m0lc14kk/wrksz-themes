@@ -372,11 +372,33 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
 ## Import paths
 
+The convenience client barrel remains available:
+
+```tsx
+import { useTheme, useThemeValue, ThemedImage } from "@wrksz/themes/client";
+```
+
+Fine-grained client subpaths are also available for consumers who prefer direct public modules:
+
+```tsx
+import { useTheme } from "@wrksz/themes/client/use-theme";
+import { useThemeValue } from "@wrksz/themes/client/use-theme-value";
+import { useThemeEffect } from "@wrksz/themes/client/use-theme-effect";
+import { ThemedImage } from "@wrksz/themes/client/themed-image";
+import { ClientThemeProvider } from "@wrksz/themes/client/provider";
+import { createThemes } from "@wrksz/themes/client/create-themes";
+```
 
 | Import                 | Use for                                                                                             |
 | ---------------------- | --------------------------------------------------------------------------------------------------- |
 | `@wrksz/themes/next`   | `ThemeProvider`, `getTheme` in Next.js (recommended)                                                |
 | `@wrksz/themes/client` | `useTheme`, `useThemeValue`, `useThemeEffect`, `createThemes`, `ThemedImage`, `ClientThemeProvider` |
+| `@wrksz/themes/client/use-theme` | Direct `useTheme` import |
+| `@wrksz/themes/client/use-theme-value` | Direct `useThemeValue` import |
+| `@wrksz/themes/client/use-theme-effect` | Direct `useThemeEffect` import |
+| `@wrksz/themes/client/themed-image` | Direct `ThemedImage` import |
+| `@wrksz/themes/client/provider` | Direct `ClientThemeProvider` import |
+| `@wrksz/themes/client/create-themes` | Direct `createThemes` import |
 | `@wrksz/themes`        | `ThemeProvider`, `createThemes` for non-Next.js frameworks                                          |
 
 

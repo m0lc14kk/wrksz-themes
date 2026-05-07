@@ -28,8 +28,11 @@ const thresholdsPath = join(benchmarkDir, "bundle-size-thresholds.json");
 
 const cases: BundleCase[] = [
 	{ name: "use-theme", entry: "entries/use-theme.tsx" },
+	{ name: "use-theme-subpath", entry: "entries/use-theme-subpath.tsx" },
 	{ name: "use-theme-value", entry: "entries/use-theme-value.tsx" },
+	{ name: "use-theme-value-subpath", entry: "entries/use-theme-value-subpath.tsx" },
 	{ name: "themed-image", entry: "entries/themed-image.tsx" },
+	{ name: "themed-image-subpath", entry: "entries/themed-image-subpath.tsx" },
 	{ name: "next-provider", entry: "entries/next-provider.tsx" },
 ];
 

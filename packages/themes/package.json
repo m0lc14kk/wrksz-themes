@@ -62,6 +62,42 @@
         "default": "./dist/client.js"
       }
     },
+    "./client/use-theme": {
+      "import": {
+        "types": "./dist/client/use-theme.d.ts",
+        "default": "./dist/client/use-theme.js"
+      }
+    },
+    "./client/use-theme-value": {
+      "import": {
+        "types": "./dist/client/use-theme-value.d.ts",
+        "default": "./dist/client/use-theme-value.js"
+      }
+    },
+    "./client/use-theme-effect": {
+      "import": {
+        "types": "./dist/client/use-theme-effect.d.ts",
+        "default": "./dist/client/use-theme-effect.js"
+      }
+    },
+    "./client/themed-image": {
+      "import": {
+        "types": "./dist/client/themed-image.d.ts",
+        "default": "./dist/client/themed-image.js"
+      }
+    },
+    "./client/provider": {
+      "import": {
+        "types": "./dist/client/provider.d.ts",
+        "default": "./dist/client/provider.js"
+      }
+    },
+    "./client/create-themes": {
+      "import": {
+        "types": "./dist/client/create-themes.d.ts",
+        "default": "./dist/client/create-themes.js"
+      }
+    },
     "./next": {
       "import": {
         "types": "./dist/next.d.ts",

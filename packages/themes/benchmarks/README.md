@@ -3,8 +3,11 @@
 These fixtures measure small, realistic `@wrksz/themes` consumption cases:
 
 - `use-theme`: imports `useTheme` from `@wrksz/themes/client`
+- `use-theme-subpath`: imports `useTheme` from `@wrksz/themes/client/use-theme`
 - `use-theme-value`: imports `useThemeValue` from `@wrksz/themes/client`
+- `use-theme-value-subpath`: imports `useThemeValue` from `@wrksz/themes/client/use-theme-value`
 - `themed-image`: imports `ThemedImage` from `@wrksz/themes/client`
+- `themed-image-subpath`: imports `ThemedImage` from `@wrksz/themes/client/themed-image`
 - `next-provider`: imports `ThemeProvider` from `@wrksz/themes/next`
 
 Run the benchmark from the repository root:
